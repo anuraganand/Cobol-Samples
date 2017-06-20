@@ -1,0 +1,39 @@
+ IDENTIFICATION DIVISION.
+ PROGRAM-ID.  SampleTable.
+ ENVIRONMENT DIVISION.
+   INPUT-OUTPUT SECTION.
+   FILE-CONTROL.
+       SELECT FILE1 ASSIGN TO DISK1.
+ DATA DIVISION.
+   FILE SECTION.
+   FD  FILE1.
+   01 STD-REC.
+       02 STD-NO          PIC 9(03).
+       02 STD-NAME        PIC X(20).
+       02 STD-GENDER      PIC X(07).
+       02 FILLER          PIC X(50).
+    WORKING-STORAGE SECTION.
+    01 VARS
+        05 TABLE_SIZE   PIC 9(4).
+        05 MY_TABLE OCCURS 1 TO 10
+            DEPENDING ON TABLE_SIZE
+            PIC X(10).
+
+    01 COLOR PIC X
+      88 YELLOW VALUE 'Y'
+      88 GREEN VALUE 'G'
+      88 RED VALUE 'R'.
+
+ PROCEDURE DIVISION.
+    E-PARA.
+    IF COLOR = 'G'
+        PERFORM
+            MOVE A TO B
+            PERFORM
+                IF B = 1
+                  NEXT SENTENCE
+                END-IF
+            END-PERFORM
+        END-PERFORM
+    END-IF.
+ STOP RUN.

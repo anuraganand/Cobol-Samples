@@ -7,7 +7,7 @@
         01 INVENTORY-RECORD.
             05 Field-A PIC X OCCURS 10000 TIMES.
         01 SAMPLE1-RECORD
-            05 Field-A PIC X OCCURS 1 TIMES.
+            05 Field-B PIC X OCCURS 1 TIMES.
         01 ITEM1 PIC X(5).
         01 ITEM2 PIC X(5).
         01 ITEM3 REDEFINES ITEM1 PIC X(5).
@@ -38,5 +38,3 @@
     DISPLAY 'IN E-PARA'.
 
  STOP RUN.
-
-
