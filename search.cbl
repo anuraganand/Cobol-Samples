@@ -1,0 +1,67 @@
+ IDENTIFICATION DIVISION.
+ PROGRAM-ID.  SampleTable.
+ ENVIRONMENT DIVISION.
+   INPUT-OUTPUT SECTION.
+   FILE-CONTROL.
+       SELECT FILE1 ASSIGN TO DISK1.
+ DATA DIVISION.
+   FILE SECTION.
+       FD FILE1.
+       01 STD-REC.
+           02 STD-NO          PIC 9(03).
+           02 STD-NAME        PIC X(20).
+           02 STD-GENDER      PIC X(07).
+           02 FILLER          PIC X(50).
+   WORKING-STORAGE SECTION.
+        01 VARS
+            05 TABLE_SIZE   PIC 9(4).
+            05 MY_TABLE OCCURS 1 TO 10
+                DEPENDING ON TABLE_SIZE
+                PIC X(10).
+
+        01 COLOR PIC X
+            88 YELLOW VALUE 'Y'
+            88 GREEN VALUE 'G'
+            88 RED VALUE 'R'.
+
+        01 WS-TABLE.
+            05 WS-A PIC X(1) OCCURS 18 TIMES INDEXED BY I.
+
+        01 WS-SRCH PIC A(1) VALUE 'M'.
+
+ PROCEDURE DIVISION.
+* This is just a sample section
+* to test PERFORM
+    SAMPLE SECTION.
+        PERFORM UNTIL (NOT DA-OK)
+            OPEN INPUT FILE1
+        END-PERFORM.
+        PERFORM VARYING WS-A FROM 1 BY 1 UNTIL WS-A=5
+            OPEN INPUT FILE1
+        END-PERFORM
+
+        IF GREEN
+        ELSE
+            CONTINUE
+        END-IF.
+
+        IF RED
+            NEXT SENTENCE
+        ELSE
+            CONTINUE
+        END-IF.
+
+    MOVE 'ABCDEFGHIJKLMNOPQR' TO WS-TABLE.
+    SET I TO 1.
+    SEARCH WS-A
+        AT END DISPLAY 'M NOT FOUND IN TABLE'
+        WHEN WS-A(I)=WS-SRCH
+        DISPLAY 'LETTER M FOUND IN TABLE'
+    END-SEARCH.
+
+    SEARCH ALL WS-A
+        AT END DISPLAY 'M NOT FOUND IN TABLE'
+        WHEN WS-A(I)=WS-SRCH
+        DISPLAY 'LETTER M FOUND IN TABLE'
+    END-SEARCH.
+ STOP RUN.
